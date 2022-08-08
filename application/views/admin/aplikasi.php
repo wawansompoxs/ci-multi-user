@@ -16,7 +16,7 @@
               <div class="card-body">
                 <table id="tabelsubmenu" class="table table-bordered table-striped table-hover">
                   <thead>
-                  <tr class="bg-info">
+                  <tr class="bg-danger">
                     <th>Nama Owner</th>
                     <th>Alamat</th>
                     <th>No Telp</th>
