@@ -14,7 +14,7 @@ class Pendidikan extends MY_Controller
 	{
 		$data['data_pegawai'] = $this->Mod_pendidikan->get_pegawai();
 		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'pendidikan', $data);
+		$this->template->load('layoutbackend', 'admin/pendidikan', $data);
 	}
 
 	public function ajax_list()
