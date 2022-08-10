@@ -14,7 +14,7 @@ class Keluarga extends MY_Controller
 	{
 		$data['data_pegawai'] = $this->Mod_keluarga->get_pegawai();
 		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'keluarga', $data);
+		$this->template->load('layoutbackend', 'admin/keluarga', $data);
 	}
 
 	public function ajax_list()
