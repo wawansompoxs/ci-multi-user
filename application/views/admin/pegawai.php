@@ -49,7 +49,11 @@
 			"responsive": true,
 			"autoWidth": false,
 			"language": {
-				"sEmptyTable": "Data Pegawai Belum Ada"
+				"sEmptyTable": "Data Pegawai Belum Ada",
+				oPaginate: {
+					sNext : "<i class='fas fa-forward'></i>",
+					sPrevious : "<i class='fas fa-backward'></i>"
+				}
 			},
 			"processing": true, //Feature control the processing indicator.
 			"serverSide": true, //Feature control DataTables' server-side processing mode.
