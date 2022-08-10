@@ -32,7 +32,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/adminlte.min.css">
   <!-- Body style -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/stylearyo.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/customstyle.css">
     <!-- SweetAlert2 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
