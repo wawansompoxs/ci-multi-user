@@ -17,7 +17,7 @@ class Pegawai extends MY_Controller
 	public function index()
 	{
 		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'pegawai');
+		$this->template->load('layoutbackend', 'admin/pegawai');
 	}
 
 	public function ajax_list()
@@ -138,7 +138,7 @@ class Pegawai extends MY_Controller
 		$data['data_kgb'] = $this->Mod_pegawai->get_kgb($nip);
 
 		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'detailpegawai', $data);
+		$this->template->load('layoutbackend', 'admin/detailpegawai', $data);
 		// $this->load->view('detailpegawai', $data);
 	}
 }
