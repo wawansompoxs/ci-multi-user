@@ -16,7 +16,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/adminlte.min.css">
     <!-- Body style -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/stylearyo.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/customstyle.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/iCheck/square/blue.css">
   <!-- Google Font: Source Sans Pro -->
@@ -26,12 +26,12 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.min.css">
 </head>
-<body class="hold-transition login-page" id="gradien1">
+<body class="hold-transition login-page" id="bgimage">
 
 <div class="login-box">
-  <div class="login-logo ">
+  <div class="login-logo">
     <a href="<?php echo base_url();?>">
-      <b>
+      <b class="text-white">
         <?php 
           echo $aplikasi->nama_aplikasi;
         ?>
@@ -40,8 +40,8 @@
 
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-header bg-info">
-      <h4><i class="fas fa-sign-in-alt"></i> Sign in to start your session</h4>
+    <div class="card-header bg-danger text-center">
+      <h4>Masuk untuk memulai</h4>
     </div>
     <div class="card-body login-card-body">
 
@@ -69,7 +69,7 @@
     
           <!-- /.col -->
           <div class="center" >
-            <button type="button" id="login" class="btn btn-info btn-block btn-flat"><span class="fa fa-sign-in-alt"></span> Sign In</button>
+            <button type="button" id="login" class="btn btn-danger btn-block btn-flat"><span class="fa fa-sign-in-alt"></span> Sign In</button>
           </div>
           <!-- /.col -->
         <!-- </div> -->
