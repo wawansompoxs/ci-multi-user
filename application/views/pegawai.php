@@ -5,9 +5,9 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header bg-light">
-						<h3 class="card-title"><i class="fa fa-list text-blue"></i> Data Pegawai</h3>
+						<h3 class="card-title"><i class="fa fa-list text-red"></i> Data Pegawai</h3>
 						<div class="text-right">
-							<button type="button" class="btn btn-sm btn-outline-primary" onclick="add_pegawai()" title="Add Data"><i class="fas fa-plus"></i> Add</button>
+							<button type="button" class="btn btn-sm btn-outline-danger" onclick="add_pegawai()" title="Add Data"><i class="fas fa-plus"></i> Tambah</button>
 						</div>
 					</div>
 					<!-- /.card-header -->
@@ -65,7 +65,7 @@
 				"targets": [-1], //last column
 				"render": function(data, type, row) {
 
-					return "<a class=\"btn btn-xs btn-outline-primary\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit_pegawai('" + row[4] + "')\"><i class=\"fas fa-edit\"></i></a> <a class=\"btn btn-xs btn-outline-warning\" href=\"pegawai/detail/"+ row[4] + "\" title=\"Detail\" nama=\"" + row[1] + "\"><i class=\"fas fa-eye\"></i></a> <a class=\"btn btn-xs btn-outline-info\" href=\"javascript:void(0)\" title=\"Print\" onclick=\"edit_pegawai(" + row[4] + ")\"><i class=\"fas fa-print\"></i></a>";
+					return "<a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit_pegawai('" + row[4] + "')\"><i class=\"fas fa-edit\"></i></a> <a class=\"btn btn-xs btn-outline-success\" href=\"pegawai/detail/"+ row[4] + "\" title=\"Detail\" nama=\"" + row[1] + "\"><i class=\"fas fa-eye\"></i></a> <a class=\"btn btn-xs btn-outline-info\" href=\"javascript:void(0)\" title=\"Print\" onclick=\"edit_pegawai(" + row[4] + ")\"><i class=\"fas fa-print\"></i></a>";
 
 				},
 
@@ -242,7 +242,7 @@
 						$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]).addClass('invalid-feedback');
 					}
 				}
-				$('#btnSave').text('save'); //change button text
+				$('#btnSave').text('Simpan'); //change button text
 				$('#btnSave').attr('disabled', false); //set button enable 
 
 
@@ -399,10 +399,10 @@
 							<label for="status_kepegawaian" class="col-sm-3 col-form-label">Status Kepegawaian</label>
 							<div class="col-sm-9">
 								<select class="form-control" name="status_kepegawaian" id="status_kepegawaian" required autocomplete="off">
-									<option value="cpns">CPNS</option>
-									<option value="pns">PNS</option>
-									<option value="pppk">PPPK</option>
-									<option value="honor">Honor</option>
+									<option value="CPNS">CPNS</option>
+									<option value="PNS">PNS</option>
+									<option value="PPPK">PPPK</option>
+									<option value="Honor">Honor</option>
 								</select>
 							</div>
 						</div>
@@ -459,8 +459,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				<button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Simpan</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

@@ -191,7 +191,7 @@
 													<td><?= ucwords($keluarga->pekerjaan) ?></td>
 													<td><?= ucwords($keluarga->hubungan) ?></td>
 													<td>
-														<a href="<?= base_url('detail_pegawai/edit_keluarga') ?>?id=<?= $keluarga->nik ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url();?>keluarga?nik=<?= $keluarga->nik ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 													</td>
 												</tr>
 											<?php endforeach; ?>
