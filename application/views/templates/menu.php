@@ -120,7 +120,7 @@ $apl = $this->db->get("aplikasi")->row();
         ?>
           <li class="nav-item has-treeview <?=$this->uri->segment(1) == $link ? 'menu-open' : '' ?>">
 
-            <a href="<?=$main->link;?>" <?=$this->uri->segment(1) == $link ? 'class="nav-link active"' : 'class="nav-link"' ?> >
+            <a href="<?=base_url().$main->link;?>" <?=$this->uri->segment(1) == $link ? 'class="nav-link active"' : 'class="nav-link"' ?> >
               <i class="nav-icon <?=$main->icon?>"></i>
               <p>
                 <?php echo $main->nama_menu; ?>
@@ -130,7 +130,7 @@ $apl = $this->db->get("aplikasi")->row();
             <ul class="nav nav-treeview">
               <?php foreach ($sub_menu->result() as $sub): ?>
               <li class="nav-item">
-                <a href="<?=$sub->link;?>"  <?=$this->uri->segment(1) == $sub->link ? 'class="nav-link active"' : 'class="nav-link"' ?> >
+                <a href="<?=base_url().$sub->link;?>"  <?=$this->uri->segment(1) == $sub->link ? 'class="nav-link active"' : 'class="nav-link"' ?> >
                   <i class="<?=$sub->icon;?> nav-icon"></i>
                   <p><?php echo $sub->nama_submenu; ?></p>
                 </a>
@@ -141,7 +141,7 @@ $apl = $this->db->get("aplikasi")->row();
           </li>
         <?php }else{ ?>
           <li class="nav-item">
-            <a href="<?=$main->link;?>" <?=$this->uri->segment(1) == $main->link ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+            <a href="<?=base_url().$main->link;?>" <?=$this->uri->segment(1) == $main->link ? 'class="nav-link active"' : 'class="nav-link"' ?>>
               <i class="nav-icon fas <?=$main->icon?>"></i>
               <p>
                 <?php echo $main->nama_menu; ?>
