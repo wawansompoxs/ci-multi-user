@@ -1,8 +1,9 @@
 
         <!-- Small boxes (Stat box) -->
         <div class="row">
-					<div class="col-lg-3 col-6">
-						<?php echo 	date('dmy') ?>
+					<div class="col-lg-6 col-6">
+						<?php echo tgl_indonesia(date('ymd')) ?>
+          <h2>Welcome back <?php echo $this->session->userdata('full_name');?></h2>
 					</div>
 				</div>
         <div class="row">
