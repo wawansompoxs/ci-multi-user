@@ -13,8 +13,13 @@ class Keluarga extends MY_Controller
 	public function index()
 	{
 		$data['data_pegawai'] = $this->Mod_keluarga->get_pegawai();
-		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'admin/keluarga', $data);
+		// function ini hanya boleh diakses oleh admin 
+		if ($this->session->userdata('id_level') == '1') {
+			$this->load->helper('url');
+			$this->template->load('layoutbackend', 'admin/keluarga', $data);
+		} else {
+			$this->template->load('error_404');
+		}
 	}
 
 	public function ajax_list()

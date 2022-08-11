@@ -16,9 +16,15 @@ class Pegawai extends MY_Controller
 
 	public function index()
 	{
-		$this->load->helper('url');
-		$this->template->load('layoutbackend', 'admin/pegawai');
+		// function ini hanya boleh diakses oleh admin 
+		if ($this->session->userdata('id_level') == '1') {
+			$this->load->helper('url');
+			$this->template->load('layoutbackend', 'admin/pegawai');
+		} else {
+			$this->template->load('error_404');
+		}
 	}
+
 
 	public function ajax_list()
 	{
