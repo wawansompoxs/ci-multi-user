@@ -136,7 +136,7 @@ class Pegawai extends MY_Controller
 	}
 	public function detail($nip)
 	{
-		$data['pegawai'] = $this->Mod_pegawai->get_by_id($nip);
+		$data['pegawai'] = $this->Mod_pegawai->get_pegawai($nip);
 		$data['data_keluarga'] = $this->Mod_pegawai->get_keluarga($nip);
 		$data['data_pendidikan'] = $this->Mod_pegawai->get_pendidikan($nip);
 		$data['data_jabatan'] = $this->Mod_pegawai->get_jabatan($nip);
