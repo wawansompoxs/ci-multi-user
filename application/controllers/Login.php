@@ -43,9 +43,9 @@ class Login extends CI_Controller {
                     'aplikasi'    => $apl->nama_aplikasi,
                     'title'       => $apl->title,
                     'logo'        => $apl->logo,
-                    'nama_owner'     => $apl->nama_owner,
+                    'nama_owner'  => $apl->nama_owner,
                     'image'       => $db->image,
-                    'logged_in'    => TRUE
+                    'logged_in'   => TRUE
                 );
 
                 $this->session->set_userdata($userdata);
