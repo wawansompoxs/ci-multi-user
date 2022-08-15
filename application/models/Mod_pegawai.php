@@ -87,8 +87,14 @@ class Mod_pegawai extends CI_Model
 
 	function get_pegawai($nip)
 	{
-		$this->db->where('nip', $nip);
-		return $this->db->get('tbl_pegawai')->row();
+		$this->db->from('tbl_pegawai');
+		$this->db->join('pangkat', 'pangkat.nip = tbl_pegawai.nip');
+		$this->db->join('jabatan', 'jabatan.nip = tbl_pegawai.nip');
+		$this->db->where('tbl_pegawai.nip', $nip);
+		$this->db->where('pangkat.status_pangkat', 'aktif');
+		$this->db->where('jabatan.status_jabatan', 'aktif');
+		$query = $this->db->get();
+		return $query->row();
 	}
 
 	function delete_pegawai($nip, $table)
