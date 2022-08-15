@@ -2,13 +2,16 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-6">
+			<div class="col-4">
 				<div class="card">
 					<div class="card-body">
+						<div class="image">
+							<img src="<?php echo base_url(); ?>assets/foto/user/<?php echo ($this->session->userdata['image'] == null) ? "default.png" : $this->session->userdata['image']; ?>" class="img-circle elevation-2" alt="User Image">
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-8">
 				<div class="card">
 					<div class="card-body">
 						<h2 class="mt-3"><?= strlen($pegawai->gelar_dpn) > 0 ? $pegawai->gelar_dpn . ". " : "" ?><?= ucwords($pegawai->nama_pegawai) ?><?= strlen($pegawai->gelar_blkg) > 0 ? ", " . $pegawai->gelar_blkg : "" ?></h2>
@@ -191,7 +194,7 @@
 													<td><?= ucwords($keluarga->pekerjaan) ?></td>
 													<td><?= ucwords($keluarga->hubungan) ?></td>
 													<td>
-														<a class="btn btn-xs btn-outline-primary" href="<?= base_url();?>keluarga?nik=<?= $keluarga->nik ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>keluarga?nik=<?= $keluarga->nik ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 													</td>
 												</tr>
 											<?php endforeach; ?>
