@@ -231,7 +231,7 @@
 													<td><?= date('d-m-Y', strtotime($pendidikan->tgl_ijazah)) ?></td>
 													<td><?= ucwords($pendidikan->no_ijazah) ?></td>
 													<td>
-														<a href="<?= base_url('detail_pegawai/edit_pendidikan') ?>?id=<?= $pendidikan->id_pendidikan ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>pendidikan?id_pendidikan=<?= $pendidikan->id_pendidikan ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 													</td>
 												</tr>
 											<?php endforeach; ?>
@@ -248,29 +248,74 @@
 										<thead>
 											<tr>
 												<th>Nama Jabatan</th>
+												<th>Jenis Jabatan</th>
 												<th>Eselon</th>
 												<th>TMT</th>
-												<th>Sampai Tanggal</th>
+												<th>TST</th>
 												<th>Status Jabatan</th>
 												<th>Opsi</th>
 											</tr>
 										</thead>
 										<tbody>
 											<?php
+											$i = 0;
 											foreach ($data_jabatan as $jabatan) :
 											?>
 												<tr>
 													<td><?= ucwords($jabatan->nama_jabatan) ?></td>
+													<td><?= ucwords($jabatan->jenis_jabatan) ?></td>
 													<td><?= ucwords($jabatan->eselon) ?></td>
 													<td><?= date('d-m-Y', strtotime($jabatan->tmt)) ?></td>
-													<td><?= date('d-m-Y', strtotime($jabatan->sampai_tgl)) ?></td>
+													<td><?= $jabatan->sampai_tgl != Null ? date('d-m-Y', strtotime($jabatan->sampai_tgl)) : "" ?></td>
 													<td><?= ucwords($jabatan->status_jabatan) ?></td>
 													<td>
-														<a href="<?= base_url('detail_pegawai/edit_jabatan') ?>?id=<?= $jabatan->id_jabatan ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
-														<a href="<?= base_url('_config/proses_jabatan') ?>?set&id=<?= $jabatan->id_jabatan ?>&nip=<?= $pegawai->nip ?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Setup</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>jabatan?id_jabatan=<?= $jabatan->id_jabatan ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+														<button type="button" class="status_checks<?= $i ?> btn btn-xs <?php echo ($jabatan->status_jabatan == "aktif") ? "btn-danger" : "btn-success"; ?> "><?php echo ($jabatan->status_jabatan == "aktif") ? "Tidak Aktif" : "Aktif"; ?></button>
 													</td>
 												</tr>
-											<?php endforeach; ?>
+												<script>
+													$(document).on('click', '.status_checks<?= $i ?>', function() {
+
+														var status = ($(this).hasClass("btn-success")) ? 'aktif' : 'tidak aktif';
+														var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif';
+														//if (confirm("Are you sure to " + msg)) {
+														var current_element = $(this);
+														// var id = $(current_element).attr('data');
+														var id = <?= $jabatan->id_jabatan ?>;
+														url = "<?php echo base_url(); ?>pegawai/set_jabatan";
+														$.ajax({
+															type: "POST",
+															url: url,
+															data: {
+																"id_jabatan": id,
+																"status_jabatan": status
+															},
+															success: function(data) {
+																// if you want reload the page
+																function gototab(reload) {
+																	window.location.hash = '#nav-jabatan';
+																	window.location.reload(true);
+																}
+																//location.reload();
+																gototab();
+																//if you want without reload
+																if (status == 'tidak aktif') {
+																	current_element.removeClass('btn-success');
+																	current_element.addClass('btn-danger');
+																	current_element.html('Tidak Aktif');
+																} else {
+																	current_element.removeClass('btn-danger');
+																	current_element.addClass('btn-success');
+																	current_element.html('Aktif');
+																}
+															}
+														});
+														//}
+													});
+												</script>
+											<?php
+												$i++;
+											endforeach; ?>
 										</tbody>
 									</table>
 									<a href="<?= base_url('jabatan') ?>?nip=<?= $pegawai->nip ?>" class="btn btn-danger"><i class="fa fa-plus"></i> Tambah Jabatan</a>
@@ -315,7 +360,7 @@
 													<td><?= buatRupiah(ucwords($pangkat->gapok)) ?></td>
 													<td><?= ucwords($pangkat->status_pangkat) ?></td>
 													<td>
-														<a href="<?= base_url('detail_pegawai/edit_pangkat') ?>?id=<?= $pangkat->id_pangkat ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>pangkat?id_pangkat=<?= $pangkat->id_pangkat ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 														<a href="<?= base_url('_config/proses_pangkat') ?>?set&id=<?= $pangkat->id_pangkat ?>&nip=<?= $pegawai->nip ?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Setup</a>
 													</td>
 												</tr>
@@ -358,7 +403,7 @@
 													<td><?= ucwords($kgb->mk_thn_kgb) ?> Tahun <?= ucwords($kgb->mk_bln_kgb) ?> Bulan</td>
 													<td><?= ucwords($kgb->status_kgb) ?></td>
 													<td>
-														<a href="<?= base_url('detail_pegawai/edit_kgb') ?>?id=<?= $kgb->id_kgb ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>kgb?id_kgb=<?= $kgb->id_kgb ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 														<a href="<?= base_url('_config/proses_kgb') ?>?set&id=<?= $kgb->id_kgb ?>&nip=<?= $pegawai->nip ?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Setup</a>
 													</td>
 												</tr>
@@ -386,3 +431,10 @@
 	</div>
 	<!-- /.container-fluid -->
 </section>
+<script>
+	var url = window.location.href;
+	var activeTab = url.substring(url.indexOf("#") + 1);
+	$(".tab-pane").removeClass("active in");
+	$("#" + activeTab).addClass("active in");
+	$('a[href="#'+ activeTab +'"]').tab('show')
+</script>

@@ -11,7 +11,7 @@ class Pegawai extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('Mod_pegawai'));
+		$this->load->model(array('Mod_pegawai','Mod_jabatan'));
 	}
 
 	public function index()
@@ -146,5 +146,12 @@ class Pegawai extends MY_Controller
 		$this->load->helper('url');
 		$this->template->load('layoutbackend', 'admin/detailpegawai', $data);
 		// $this->load->view('detailpegawai', $data);
+	}
+
+	public function set_jabatan(){
+
+		$id_jabatan = $this->input->post('id_jabatan');
+		$status_jabatan = $this->input->post('status_jabatan');
+		$this->Mod_jabatan->update_jabatan_set($id_jabatan,$status_jabatan);
 	}
 }

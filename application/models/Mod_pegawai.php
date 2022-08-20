@@ -129,7 +129,7 @@ class Mod_pegawai extends CI_Model
 	}
 	public function get_jabatan($nip)
 	{
-		$this->db->select('jabatan.id_jabatan,jabatan.nip,jabatan.nama_jabatan,jabatan.eselon,jabatan.tmt,jabatan.sampai_tgl,jabatan.status_jabatan');
+		$this->db->select('jabatan.id_jabatan,jabatan.nip,jabatan.nama_jabatan,jabatan.jenis_jabatan,jabatan.eselon,jabatan.tmt,jabatan.sampai_tgl,jabatan.status_jabatan');
 		$this->db->from($this->table);
 		$this->db->where('jabatan.nip', $nip);
 		$this->db->join('jabatan', 'jabatan.nip = tbl_pegawai.nip');
