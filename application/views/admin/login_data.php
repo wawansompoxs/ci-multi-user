@@ -26,12 +26,13 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.min.css">
 </head>
-<body class="hold-transition login-page" id="bgimage">
-
+<body class="hold-transition login-page" id="gradient2">
+<!-- particles.js container -->
+<div id="particles-js" style="position: absolute ;z-index: 0; width: 100%;"></div>
 <div class="login-box">
   <div class="login-logo">
     <a href="<?php echo base_url();?>">
-      <b class="text-white">
+      <b class="text-black">
         <?php 
           echo $aplikasi->nama_aplikasi;
         ?>
@@ -41,7 +42,8 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-header bg-danger text-center">
-      <h4>Masuk untuk memulai</h4>
+      <!-- <h4>Masuk untuk memulai</h4> -->
+			<img src="<?= base_url();?>assets/dist/img/indramayu.png" alt="" style="width: 120PX;">
     </div>
     <div class="card-body login-card-body">
 
@@ -113,7 +115,8 @@
 <!-- Toastr -->
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.min.js"></script>  
 
-
+<script src="<?= base_url();?>assets/plugins/particles.js"></script>
+<script src="<?= base_url();?>assets/plugins/app.js"></script>
 <script>
   $("#login").on('click',function() {
       $.ajax({
