@@ -4,11 +4,11 @@
 }
 /*Linear Gradien – Kiri ke Kanan*/
 #gradien2{
-	background-image: linear-gradient(to right, #4682B4, #00FFFF, #00FA9A);
+	background-image: linear-gradient(#585858, #333333);
 }
 /*Linear Gradient – Diagonal*/
 #gradient3 {
-  background-image: linear-gradient(#830000, #b30000);
+  background-image: linear-gradient(#d10505, #ec0f0f);
 }
 
 /*Linear Gradient – Angles*/
