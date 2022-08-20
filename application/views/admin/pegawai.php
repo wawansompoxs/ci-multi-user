@@ -69,7 +69,7 @@
 				"targets": [-1], //last column
 				"render": function(data, type, row) {
 
-					return "<a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit_pegawai('" + row[4] + "')\"><i class=\"fas fa-edit\"></i></a> <a class=\"btn btn-xs btn-outline-success\" href=\"pegawai/detail/"+ row[4] + "\" title=\"Detail\" nama=\"" + row[1] + "\"><i class=\"fas fa-eye\"></i></a> <a class=\"btn btn-xs btn-outline-info\" href=\"javascript:void(0)\" title=\"Print\" onclick=\"edit_pegawai(" + row[4] + ")\"><i class=\"fas fa-print\"></i></a>";
+					return "<a class=\"btn btn-xs btn-outline-danger\" href=\"javascript:void(0)\" title=\"Edit\" onclick=\"edit_pegawai('" + row[4] + "')\"><i class=\"fas fa-edit\"></i></a> <a class=\"btn btn-xs btn-outline-success\" href=\"pegawai/detail/"+ row[4] + "#nav-profil\" title=\"Detail\" nama=\"" + row[1] + "\"><i class=\"fas fa-eye\"></i></a> <a class=\"btn btn-xs btn-outline-info\" href=\"javascript:void(0)\" title=\"Print\" onclick=\"edit_pegawai(" + row[4] + ")\"><i class=\"fas fa-print\"></i></a>";
 
 				},
 
