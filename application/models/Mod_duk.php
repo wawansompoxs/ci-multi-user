@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_duk extends CI_Model
 {
 	var $table = 'tbl_pegawai';
-	var $column_search = array('nip', 'nama_pegawai', 'email', 'no_hp', 'status_kepegawaian', 'gelar_dpn', 'gelar_blkg');
-	var $column_order = array('nip', 'nama_pegawai', 'email', 'no_hp', 'status_kepegawaian', 'gelar_dpn', 'gelar_blkg');
-	var $order = array('jenis_pangkat' => 'desc','tanggal_lahir' => 'asc');
+	var $column_search = array('tbl_pegawai.nip', 'tbl_pegawai.nama_pegawai', 'tbl_pegawai.email', 'tbl_pegawai.no_hp', 'tbl_pegawai.status_kepegawaian', 'tbl_pegawai.gelar_dpn', 'tbl_pegawai.gelar_blkg');
+	var $column_order = array('tbl_pegawai.nip', 'tbl_pegawai.nama_pegawai', 'tbl_pegawai.email', 'tbl_pegawai.no_hp', 'tbl_pegawai.status_kepegawaian', 'tbl_pegawai.gelar_dpn', 'tbl_pegawai.gelar_blkg');
+	var $order = array('pangkat.jenis_pangkat' => 'desc','tbl_pegawai.tanggal_lahir' => 'asc');
 	function __construct()
 	{
 		parent::__construct();
@@ -18,7 +18,7 @@ class Mod_duk extends CI_Model
 		$this->db->from('tbl_pegawai');
 		$this->db->where('pangkat.status_pangkat', 'aktif');
 		$this->db->join('pangkat', 'pangkat.nip = tbl_pegawai.nip');
-		$this->db->order_by('jenis_pangkat', 'desc','tanggal_lahir', 'asc');
+		$this->db->order_by('pangkat.jenis_pangkat', 'desc','tbl_pegawai.tanggal_lahir', 'asc');
 		$i = 0;
 
 		foreach ($this->column_search as $item) // loop column 
