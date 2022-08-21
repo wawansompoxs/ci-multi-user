@@ -6,7 +6,7 @@ class Mod_pangkat extends CI_Model
 	var $table = 'pangkat';
 	var $column_search = array('pangkat.nama_pangkat','pangkat.jenis_pangkat','pangkat.tmt_pangkat','pangkat.sah_sk','pangkat.no_sk','pangkat.status_pangkat','tbl_pegawai.nama_pegawai');
 	var $column_order = array('pangkat.nama_pangkat','pangkat.jenis_pangkat','pangkat.tmt_pangkat','pangkat.sah_sk','pangkat.no_sk','pangkat.status_pangkat','tbl_pegawai.nama_pegawai','pangkat.gapok');
-	var $order = array('tbl_pegawai.nip' => 'asc');
+	var $order = array('tbl_pegawai.nip' => 'asc','pangkat.jenis_pangkat' => 'desc');
 	function __construct()
 	{
 		parent::__construct();
@@ -18,6 +18,8 @@ class Mod_pangkat extends CI_Model
 		$this->db->select('tbl_pegawai.nip,tbl_pegawai.nama_pegawai,tbl_pegawai.gelar_dpn,tbl_pegawai.gelar_blkg,pangkat.nama_pangkat,pangkat.jenis_pangkat,pangkat.tmt_pangkat,pangkat.sah_sk,pangkat.nama_pengesah_sk,pangkat.no_sk,pangkat.status_pangkat,pangkat.id_pangkat,pangkat.gapok');
 		$this->db->from($this->table);
 		$this->db->join('tbl_pegawai', 'tbl_pegawai.nip = pangkat.nip');
+		$this->db->order_by('tbl_pegawai.nip', 'asc');
+		$this->db->order_by('pangkat.jenis_pangkat', 'desc');
 
 		$i = 0;
 
