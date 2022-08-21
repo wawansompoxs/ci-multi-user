@@ -83,23 +83,18 @@ class Mod_jabatan extends CI_Model
 		$this->db->update('jabatan', $data);
 	}
 
-	// function update_jabatan_set($id_jabatan, $data)
-	// {
-
-	// 	$this->db->where('id_jabatan', $id_jabatan);
-	// 	$this->db->update('jabatan', $data);
-	// }
-
-	public function update_jabatan_set($id_jabatan,$status_jabatan){
-		$data['status_jabatan'] = $status_jabatan;
-		$this->db->where('id_jabatan', $id_jabatan);
-		$this->db->update('jabatan',$data);
+	public function update_jabatan_set($id_jabatan,$status_jabatan,$nip){
+		$this->db->trans_start();
+		$this->db->query("UPDATE jabatan SET status_jabatan='tidak aktif' WHERE nip='$nip'");
+		$this->db->query("UPDATE jabatan SET status_jabatan='$status_jabatan' WHERE id_jabatan='$id_jabatan'");
+		$this->db->trans_complete();
 	  }
 
-	  public function update_pangkat_set($id_pangkat,$status_pangkat){
-		$data['status_pangkat'] = $status_pangkat;
-		$this->db->where('id_pangkat', $id_pangkat);
-		$this->db->update('pangkat',$data);
+	  public function update_pangkat_set($id_pangkat,$status_pangkat,$nip){
+		$this->db->trans_start();
+		$this->db->query("UPDATE pangkat SET status_pangkat='tidak aktif' WHERE nip='$nip'");
+		$this->db->query("UPDATE pangkat SET status_pangkat='$status_pangkat' WHERE id_pangkat='$id_pangkat'");
+		$this->db->trans_complete();
 	  }
 
 	function get_jabatan($id_jabatan)
