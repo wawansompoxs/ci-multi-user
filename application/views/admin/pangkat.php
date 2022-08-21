@@ -88,7 +88,7 @@
 						} else {
 							var text = 'Aktifkan'
 						};
-						return "<a href=\"javascript:void(0)\" class=\"status_checks" + row[0] + " btn btn-xs " + slide + "\" onclick=\"set_pangkats('" + row[6] + "','" + row[7] + "')\">" + text + "</a>"
+						return "<a href=\"javascript:void(0)\" class=\"status_checks" + row[0] + " btn btn-xs " + slide + "\" onclick=\"set_pangkats('" + row[6] + "','" + row[7] + "','" + row[8] + "')\">" + text + "</a>"
 
 					},
 
@@ -189,8 +189,9 @@
 		$('.modal-title').text('Tambah Pangkat'); // Set Title to Bootstrap modal title
 	}
 
-	function set_pangkats(stat, id_pangkat) {
+	function set_pangkats(stat, id_pangkat, nips) {
 		var id = id_pangkat;
+		var nip = nips;
 		var status = (stat == 'tidak aktif') ? 'aktif' : 'tidak aktif';
 		var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif'; 
 		if (confirm("Are you sure to " + msg)){
@@ -200,16 +201,15 @@
 				url: url,
 				data: {
 					"id_pangkat": id,
-					"status_pangkat": status
+					"status_pangkat": status,
+					"nip": nip
 				},
 				success: function(data) {
 					// if you want reload the page
 					location.reload();
 				}
-
 			});
 		}
-
 	}
 
 	function edit_pangkat(id_pangkat) {
@@ -377,7 +377,7 @@ if (isset($_GET['id_pangkat'])) {
 						<div class="form-group row">
 							<label for="gapok" class="col-sm-3 col-form-label">Gaji Pokok</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="gapok" id="gapok" placeholder="Gaji Pokok" required>
+								<input type="number" class="form-control" name="gapok" id="gapok" placeholder="Gaji Pokok" required>
 							</div>
 						</div>
 

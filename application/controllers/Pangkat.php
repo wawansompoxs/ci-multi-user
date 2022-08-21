@@ -45,6 +45,7 @@ class Pangkat extends MY_Controller
 			$row[] = rupiah($pel->gapok);
 			$row[] = $pel->status_pangkat;
 			$row[] = $pel->id_pangkat;
+			$row[] = $pel->nip;
 			$data[] = $row;
 		}
 
@@ -113,6 +114,12 @@ class Pangkat extends MY_Controller
 		$data['error_string'] = array();
 		$data['inputerror'] = array();
 		$data['status'] = TRUE;
+
+		if ($this->input->post('gapok') == '') {
+			$data['inputerror'][] = 'gapok';
+			$data['error_string'][] = 'Gaji Pokok Tidak Boleh Kosong';
+			$data['status'] = FALSE;
+		}
 
 		if ($data['status'] === FALSE) {
 			echo json_encode($data);
