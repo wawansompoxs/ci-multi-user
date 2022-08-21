@@ -323,16 +323,6 @@
 
 							</div>
 							<div class="tab-pane fade" id="nav-pangkat" role="tabpanel">
-
-								<?php
-								// fungsi buatRupiah
-								function buatRupiah($angka)
-								{
-									$hasil = "Rp " . number_format($angka, 0, ',', '.');
-									return $hasil;
-								}
-
-								?>
 								<div class="table-responsive mt-3">
 									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
@@ -357,7 +347,7 @@
 													<td><?= ucwords($pangkat->no_sk) ?> <br />
 														<span class="text-blue font-small">Tanggal : <?= date('d-m-Y', strtotime($pangkat->sah_sk)) ?></span>
 													</td>
-													<td><?= buatRupiah(ucwords($pangkat->gapok)) ?></td>
+													<td><?= rupiah(ucwords($pangkat->gapok)) ?></td>
 													<td><?= ucwords($pangkat->status_pangkat) ?></td>
 													<td>
 														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>pangkat?id_pangkat=<?= $pangkat->id_pangkat ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
@@ -399,7 +389,7 @@
 													<td><?= ucwords($kgb->no_sk) ?> <br />
 														<span class="text-blue font-small">Tanggal : <?= date('d-m-Y', strtotime($kgb->tanggal_sk)) ?></span>
 													</td>
-													<td><?= buatRupiah(ucwords($kgb->gapok)) ?></td>
+													<td><?= rupiah(ucwords($kgb->gapok)) ?></td>
 													<td><?= ucwords($kgb->mk_thn_kgb) ?> Tahun <?= ucwords($kgb->mk_bln_kgb) ?> Bulan</td>
 													<td><?= ucwords($kgb->status_kgb) ?></td>
 													<td>
