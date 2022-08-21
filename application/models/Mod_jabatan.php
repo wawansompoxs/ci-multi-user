@@ -96,6 +96,12 @@ class Mod_jabatan extends CI_Model
 		$this->db->update('jabatan',$data);
 	  }
 
+	  public function update_pangkat_set($id_pangkat,$status_pangkat){
+		$data['status_pangkat'] = $status_pangkat;
+		$this->db->where('id_pangkat', $id_pangkat);
+		$this->db->update('pangkat',$data);
+	  }
+
 	function get_jabatan($id_jabatan)
 	{
 		$this->db->where('id_jabatan', $id_jabatan);
