@@ -154,4 +154,11 @@ class Pegawai extends MY_Controller
 		$status_jabatan = $this->input->post('status_jabatan');
 		$this->Mod_jabatan->update_jabatan_set($id_jabatan,$status_jabatan);
 	}
+
+	public function set_pangkat(){
+
+		$id_pangkat = $this->input->post('id_pangkat');
+		$status_pangkat = $this->input->post('status_pangkat');
+		$this->Mod_jabatan->update_pangkat_set($id_pangkat,$status_pangkat);
+	}
 }
