@@ -258,7 +258,6 @@
 										</thead>
 										<tbody>
 											<?php
-											$i = 0;
 											foreach ($data_jabatan as $jabatan) :
 											?>
 												<tr>
@@ -270,52 +269,11 @@
 													<td><?= ucwords($jabatan->status_jabatan) ?></td>
 													<td>
 														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>jabatan?id_jabatan=<?= $jabatan->id_jabatan ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-														<button type="button" class="status_checks<?= $i ?> btn btn-xs <?php echo ($jabatan->status_jabatan == "aktif") ? "btn-danger" : "btn-success"; ?> "><?php echo ($jabatan->status_jabatan == "aktif") ? "Tidak Aktif" : "Aktif"; ?></button>
+														<a href="javascript:void(0)" class="btn btn btn-xs <?php echo ($jabatan->status_jabatan == "aktif") ? "btn-danger" : "btn-success"; ?>" <?php echo ($jabatan->status_jabatan == "tidak aktif") ? "onclick=\"set_jabatan('" . $jabatan->status_jabatan . "','" . $jabatan->id_jabatan . "','" . $jabatan->nip . "')\"" : ""; ?>><i class="fa fa-check"></i> <?php echo ($jabatan->status_jabatan == "aktif") ? "Non Aktifkan" : "Aktifkan"; ?></a>
 													</td>
 												</tr>
-												<script>
-													$(document).on('click', '.status_checks<?= $i ?>', function() {
 
-														var status = ($(this).hasClass("btn-success")) ? 'aktif' : 'tidak aktif';
-														var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif';
-														//if (confirm("Are you sure to " + msg)) {
-														var current_element = $(this);
-														// var id = $(current_element).attr('data');
-														var id = <?= $jabatan->id_jabatan ?>;
-														url = "<?php echo base_url(); ?>pegawai/set_jabatan";
-														$.ajax({
-															type: "POST",
-															url: url,
-															data: {
-																"id_jabatan": id,
-																"status_jabatan": status
-															},
-															success: function(data) {
-																// if you want reload the page
-																function gototab(reload) {
-																	window.location.hash = '#nav-jabatan';
-																	window.location.reload(true);
-																}
-																//location.reload();
-																gototab();
-																//if you want without reload
-																if (status == 'tidak aktif') {
-																	current_element.removeClass('btn-success');
-																	current_element.addClass('btn-danger');
-																	current_element.html('Tidak Aktif');
-																} else {
-																	current_element.removeClass('btn-danger');
-																	current_element.addClass('btn-success');
-																	current_element.html('Aktif');
-																}
-															}
-														});
-														//}
-													});
-												</script>
-											<?php
-												$i++;
-											endforeach; ?>
+											<?php endforeach; ?>
 										</tbody>
 									</table>
 									<a href="<?= base_url('jabatan') ?>?nip=<?= $pegawai->nip ?>" class="btn btn-danger"><i class="fa fa-plus"></i> Tambah Jabatan</a>
@@ -351,7 +309,7 @@
 													<td><?= ucwords($pangkat->status_pangkat) ?></td>
 													<td>
 														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>pangkat?id_pangkat=<?= $pangkat->id_pangkat ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-														<a href="<?= base_url('_config/proses_pangkat') ?>?set&id=<?= $pangkat->id_pangkat ?>&nip=<?= $pegawai->nip ?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Setup</a>
+														<a href="javascript:void(0)" class="btn btn btn-xs <?php echo ($pangkat->status_pangkat == "aktif") ? "btn-danger" : "btn-success"; ?>" <?php echo ($pangkat->status_pangkat == "tidak aktif") ? "onclick=\"set_pangkat('" . $pangkat->status_pangkat . "','" . $pangkat->id_pangkat . "','" . $pangkat->nip . "')\"" : ""; ?>><i class="fa fa-check"></i> <?php echo ($pangkat->status_pangkat == "aktif") ? "Non Aktifkan" : "Aktifkan"; ?></a>
 													</td>
 												</tr>
 											<?php endforeach; ?>
@@ -426,5 +384,64 @@
 	var activeTab = url.substring(url.indexOf("#") + 1);
 	$(".tab-pane").removeClass("active in");
 	$("#" + activeTab).addClass("active in");
-	$('a[href="#'+ activeTab +'"]').tab('show')
+	$('a[href="#' + activeTab + '"]').tab('show')
+</script>
+<script type="text/javascript">
+	function set_pangkat(stat, id_pangkat, nips) {
+		var id = id_pangkat;
+		var nip = nips;
+		var status = (stat == 'tidak aktif') ? 'aktif' : 'tidak aktif';
+		var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif';
+		if (confirm("Are you sure to " + msg)) {
+			url = "<?php echo site_url('pegawai/set_pangkat'); ?>";
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: {
+					"id_pangkat": id,
+					"status_pangkat": status,
+					"nip": nip
+				},
+				success: function(data) {
+					// if you want reload the page
+					function gototab(reload) {
+						window.location.hash = '#nav-pangkat';
+						window.location.reload(true);
+					}
+					//location.reload();
+					gototab();
+				}
+			});
+		}
+	}
+
+	function set_jabatan(stat, id_jabatan, nips) {
+		var id = id_jabatan;
+		var nip = nips;
+		var status = (stat == 'tidak aktif') ? 'aktif' : 'tidak aktif';
+		var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif';
+		if (confirm("Are you sure to " + msg)) {
+			url = "<?php echo site_url('pegawai/set_jabatan'); ?>";
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: {
+					"id_jabatan": id,
+					"status_jabatan": status,
+					"nip": nip
+				},
+				success: function(data) {
+					// if you want reload the page
+					function gototab(reload) {
+						window.location.hash = '#nav-jabatan';
+						window.location.reload(true);
+					}
+					//location.reload();
+					gototab();
+				}
+
+			});
+		}
+
+	}
 </script>
