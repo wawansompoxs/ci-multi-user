@@ -44,6 +44,7 @@ class Jabatan extends MY_Controller
 			$row[] = $pel->sampai_tgl;
 			$row[] = $pel->status_jabatan;
 			$row[] = $pel->id_jabatan;
+			$row[] = $pel->nip;
 			$data[] = $row;
 		}
 

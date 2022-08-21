@@ -74,7 +74,27 @@
 				},
 
 				"orderable": false, //set not orderable
-			}]
+			},
+			{
+					"targets": [-2], //last column
+					"render": function(data, type, row) {
+
+						if (row[7] == 'aktif') {
+							var slide = 'btn-danger'
+						} else {
+							var slide = 'btn-success'
+						};
+						if (row[7] == 'aktif') {
+							var text = 'Non Aktifkan'
+						} else {
+							var text = 'Aktifkan'
+						};
+						return "<a href=\"javascript:void(0)\" class=\"status_checks" + row[0] + " btn btn-xs " + slide + "\" onclick=\"set_jabatan('" + row[7] + "','" + row[8] + "','" + row[9] + "')\">" + text + "</a>"
+
+					},
+
+					"orderable": false, //set not orderable
+				}]
 		});
 
 		//set input/textarea/select event when change value, remove class error and remove text help block 
@@ -167,6 +187,31 @@
 			keyboard: false
 		}); // show bootstrap modal
 		$('.modal-title').text('Tambah jabatan'); // Set Title to Bootstrap modal title
+	}
+
+	function set_jabatan(stat, id_jabatan, nips) {
+		var id = id_jabatan;
+		var nip = nips;
+		var status = (stat == 'tidak aktif') ? 'aktif' : 'tidak aktif';
+		var msg = (status == 'aktif') ? 'aktif' : 'tidak aktif'; 
+		if (confirm("Are you sure to " + msg)){
+			url = "<?php echo site_url('pegawai/set_jabatan'); ?>";
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: {
+					"id_jabatan": id,
+					"status_jabatan": status,
+					"nip": nip
+				},
+				success: function(data) {
+					// if you want reload the page
+					location.reload();
+				}
+
+			});
+		}
+
 	}
 
 	function edit_jabatan(id_jabatan) {
