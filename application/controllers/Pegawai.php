@@ -161,4 +161,9 @@ class Pegawai extends MY_Controller
 		$nip = $this->input->post('nip');
 		$this->Mod_jabatan->update_pangkat_set($id_pangkat,$status_pangkat,$nip);
 	}
+
+	function data_keluarga($nip){
+        $data=$this->Mod_pegawai->get_keluarga($nip);
+        echo json_encode($data);
+    }
 }

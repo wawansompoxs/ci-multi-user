@@ -170,7 +170,7 @@
 							<div class="tab-pane fade" id="nav-keluarga" role="tabpanel">
 
 								<div class="table-responsive mt-3">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTableKeluarga" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>NIK</th>
@@ -182,10 +182,10 @@
 												<th>Opsi</th>
 											</tr>
 										</thead>
-										<tbody>
-											<?php
-											foreach ($data_keluarga as $keluarga) :
-											?>
+										<tbody id="show_data_keluarga">
+											<!-- <?php
+													foreach ($data_keluarga as $keluarga) :
+													?>
 												<tr>
 													<td><?= ucwords($keluarga->nik) ?></td>
 													<td><?= ucwords($keluarga->nama_keluarga) ?></td>
@@ -197,17 +197,19 @@
 														<a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>keluarga?nik=<?= $keluarga->nik ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a>
 													</td>
 												</tr>
-											<?php endforeach; ?>
+											<?php endforeach; ?> -->
+
 										</tbody>
 									</table>
-									<a href="<?= base_url('keluarga') ?>?nip=<?= $pegawai->nip ?>" class="btn btn-danger"><i class="fa fa-plus"></i> Tambah Keluarga</a>
+									<!-- <a href="<?= base_url('keluarga') ?>?nip=<?= $pegawai->nip ?>" class="btn btn-danger"><i class="fa fa-plus"></i> Tambah Keluarga</a> -->
+									<button type="button" class="btn btn-sm btn-outline-danger" onclick="add_keluarga()" title="Add Data"><i class="fas fa-plus"></i> Tambah</button>
 								</div>
 
 							</div>
 							<div class="tab-pane fade" id="nav-pendidikan" role="tabpanel">
 
 								<div class="table-responsive mt-3">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTablePendidikan" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>Tingkat</th>
@@ -244,7 +246,7 @@
 							<div class="tab-pane fade" id="nav-jabatan" role="tabpanel">
 
 								<div class="table-responsive mt-3">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTableJabatan" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>Nama Jabatan</th>
@@ -282,7 +284,7 @@
 							</div>
 							<div class="tab-pane fade" id="nav-pangkat" role="tabpanel">
 								<div class="table-responsive mt-3">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTablePangkat" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>Pangkat / Golongan</th>
@@ -321,7 +323,7 @@
 							</div>
 							<div class="tab-pane fade" id="nav-kgb" role="tabpanel">
 								<div class="table-responsive mt-3">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTableKGB" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>Pangkat / Golongan</th>
@@ -387,6 +389,37 @@
 	$('a[href="#' + activeTab + '"]').tab('show')
 </script>
 <script type="text/javascript">
+	$(document).ready(function() {
+		tampil_data_keluarga();
+		$('#dataTableKeluarga').dataTable();
+		function tampil_data_keluarga() {
+			$.ajax({
+				type: 'ajax',
+				url: '<?php echo base_url() ?>pegawai/data_keluarga/<?= $pegawai->nip ?>',
+				async: false,
+				dataType: 'json',
+				success: function(data) {
+					var html = '';
+					var i;
+					for (i = 0; i < data.length; i++) {
+						html += '<tr>' +
+							'<td>' + data[i].nik + '</td>' +
+							'<td>' + data[i].nama_keluarga + '</td>' +
+							'<td>' + data[i].tempat_lahir + ', ' + data[i].tanggal_lahir + '</td>' +
+							'<td>' + data[i].pendidikan + '</td>' +
+							'<td>' + data[i].pekerjaan + '</td>' +
+							'<td>' + data[i].hubungan + '</td>' +
+							'<td> Edit </td>' +
+							'</tr>';
+					}
+					$('#show_data_keluarga').html(html);
+				}
+				// <td><a class="btn btn-xs btn-outline-primary" href="<?= base_url(); ?>keluarga?nik=<?= $keluarga->nik ?>" title="Edit"><i class="fas fa-edit"></i> Edit</a></td>
+			});
+		}
+		
+	});
+
 	function set_pangkat(stat, id_pangkat, nips) {
 		var id = id_pangkat;
 		var nip = nips;
@@ -444,4 +477,168 @@
 		}
 
 	}
+
+	function reload_table() {
+		table.ajax.reload(null, false); //reload datatable ajax 
+	}
+
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000
+	});
+
+	function add_keluarga() {
+		save_method = 'add';
+		act = 'add_keluarga';
+		$('#form')[0].reset(); // reset form on modals
+		$('.form-group').removeClass('has-error'); // clear error class
+		$('.help-block').empty(); // clear error string
+		$('#modal_form').modal({
+			backdrop: 'static',
+			keyboard: false
+		}); // show bootstrap modal
+		$('.modal-title').text('Tambah keluarga'); // Set Title to Bootstrap modal title
+	}
+
+	function save() {
+		$('#btnSave').text('saving...'); //change button text
+		$('#btnSave').attr('disabled', true); //set button disable 
+		if (save_method == 'add') {
+			url = "<?php echo site_url('keluarga/insert') ?>";
+		} else {
+			url = "<?php echo site_url('keluarga/update') ?>";
+		}
+
+		// ajax adding data to database
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: $('#form').serialize(),
+			dataType: "JSON",
+			success: function(data) {
+
+				if (data.status) //if success close modal and reload ajax table
+				{
+					$('#modal_form').modal('hide');
+					if (act == 'add_keluarga') {
+						tampil_data_keluarga().call();
+					}
+					Toast.fire({
+						icon: 'success',
+						title: 'Berhasil disimpan!!.'
+					});
+				} else {
+					for (var i = 0; i < data.inputerror.length; i++) {
+						$('[name="' + data.inputerror[i] + '"]').addClass('is-invalid');
+						$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]).addClass('invalid-feedback');
+					}
+				}
+				$('#btnSave').text('Simpan'); //change button text
+				$('#btnSave').attr('disabled', false); //set button enable 
+
+
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert('Error Menambah / Mengupdate data');
+				$('#btnSave').text('save'); //change button text
+				$('#btnSave').attr('disabled', false); //set button enable 
+
+			}
+		});
+	}
 </script>
+
+<!-- Bootstrap modal keluarga -->
+<div class="modal fade" id="modal_form" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content ">
+
+			<div class="modal-header">
+				<h3 class="modal-title">Person Form</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+			<div class="modal-body form">
+				<form action="#" id="form" class="form-horizontal">
+					<input type="hidden" value="" name="nik" />
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="nip" class="col-sm-3 col-form-label">Pilih Pegawai</label>
+							<div class="col-sm-9">
+								<select class="form-control" name="nip" id="nip" autofocus>
+									<option value="<?= $pegawai->nip ?>"><?= $pegawai->nama_pegawai ?></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="nik" class="col-sm-3 col-form-label">NIK</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="nik_baru" id="nik_baru" placeholder="NIK">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="nama_keluarga" class="col-sm-3 col-form-label">Nama Lengkap</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="nama_keluarga" id="nama_keluarga" placeholder="Nama Lengkap">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="ttl" class="col-sm-3 col-form-label">Tempat/Tanggal Lahir</label>
+							<div class="col">
+								<input type="text" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir">
+							</div>
+							<div class="col">
+								<input type="date" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="pendidikan" class="col-sm-3 col-form-label">Pendidikan</label>
+							<div class="col-sm-9">
+								<select class="form-control" name="pendidikan" id="pendidikan" required>
+									<option value="">Belum ada pilihan</option>
+									<option value="Belum Sekolah">Belum Sekolah</option>
+									<option value="SD">SD</option>
+									<option value="SMP">SMP</option>
+									<option value="SLTP">SLTP</option>
+									<option value="SLTA">SLTA</option>
+									<option value="D3">D3</option>
+									<option value="S1">S1</option>
+									<option value="S2">S2</option>
+									<option value="S3">S3</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="pekerjaan" class="col-sm-3 col-form-label">Pekerjaan</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="hubungan" class="col-sm-3 col-form-label">Hubungan</label>
+							<div class="col-sm-9">
+								<select class="form-control" name="hubungan" id="hubungan" required>
+									<option value="">Belum ada pilihan</option>
+									<option value="Suami">Suami</option>
+									<option value="Istri">Istri</option>
+									<option value="Ayah">Ayah</option>
+									<option value="Ibu">Ibu</option>
+									<option value="Anak">Anak</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Simpan</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- End Bootstrap modal -->
